@@ -663,7 +663,7 @@ export default function App() {
         <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden transition-colors duration-75" style={{ backgroundColor: `rgba(0, 0, 0, ${homeBgColorOpacity})` }}>
           <BiologicalParticles progress={labProgress} />
           <div className="absolute inset-0 w-full h-full will-change-transform pointer-events-none" style={{ opacity: labLogoOpacity, transform: `scale(${labLogoScale}) translateY(${labLogoY}px)` }}>
-            <img src="/images/hapgen.png" alt="HapGen Lab Logo" className="w-full h-full object-cover" />
+            <img src="./images/hapgen.png" alt="HapGen Lab Logo" className="w-full h-full object-cover" />
           </div>
           <div className="absolute bottom-12 left-1/2 flex -translate-x-1/2 flex-col items-center gap-4" style={{ opacity: 1 - smooth(clamp(labProgress / 0.35)) }}>
             <span className="text-[9px] uppercase tracking-[0.5em] text-gray-400">Scroll to explore</span>
@@ -677,7 +677,7 @@ export default function App() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: "url('/images/cell-division.jpg')",
+            backgroundImage: "url('./images/cell-division.jpg')",
             opacity: 0.9,
           }}
         />
@@ -692,7 +692,7 @@ export default function App() {
 
           <div className="mt-14 grid lg:grid-cols-[340px_1fr] gap-10 lg:gap-16 items-start">
             <div className="reveal-on-view relative aspect-[3/4] w-full max-w-[340px] rounded-2xl overflow-hidden border border-white/10 shadow-[0_20px_60px_-20px_rgba(103,232,249,0.25)]" style={{ animationDelay: "120ms" }}>
-              <img src="/images/dr-ravi.jpg" alt="Dr. Ravi Maruthachalam" className="h-full w-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; (e.target as HTMLImageElement).parentElement!.classList.add("bg-gradient-to-br", "from-cyan-900/40", "to-slate-900"); }} />
+              <img src="./images/dr-ravi.jpg" alt="Dr. Ravi Maruthachalam" className="h-full w-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; (e.target as HTMLImageElement).parentElement!.classList.add("bg-gradient-to-br", "from-cyan-900/40", "to-slate-900"); }} />
               <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/85 to-transparent">
                 <p className="text-[10px] uppercase tracking-[0.3em] text-cyan-200/70">Principal Investigator</p>
                 <p className="text-sm text-white/90 mt-1">Plant Cytogenetics & Genome Engineering</p>
@@ -800,7 +800,7 @@ export default function App() {
       <section id="research" ref={plantSectionRef} className="relative h-[500vh] bg-black text-white">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <div className="absolute inset-0 will-change-transform" style={{ transformOrigin: "62% 30%", transform: `translate3d(${plantX}%, ${plantY}%, 0) scale(${plantScale})`, opacity: plantOpacity, filter: plantBlur > 0.5 ? `blur(${plantBlur}px)` : undefined, transition: "transform 60ms linear" }}>
-            <img src="/images/arabidopsis-real.jpg" alt="Arabidopsis thaliana specimen" className="hero-plant h-full w-full object-contain object-center" />
+            <img src="./images/arabidopsis-real.jpg" alt="Arabidopsis thaliana specimen" className="hero-plant h-full w-full object-contain object-center" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent_20%,rgba(0,0,0,0.35)_60%,black_95%)]" />
           </div>
           <div className="absolute left-0 top-0 z-10 w-full px-8 pt-10 pointer-events-none sm:px-12 sm:pt-16" style={{ opacity: introReveal * (1 - smooth(clamp((plantProgress - 0.50) / 0.15))), transform: `translateY(${(1 - introReveal) * 30}px)` }}>
@@ -820,7 +820,7 @@ export default function App() {
       <section id="research-interests" ref={chromosomeSectionRef} className="relative h-[430vh] bg-black">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <div className="absolute inset-0 will-change-transform" style={{ opacity: chromosomeIntro, transform: `translate3d(${chromosomeX}%, 0, 0) scale(${chromosomeScale})`, transition: "transform 70ms linear" }}>
-            <img src="/images/chromosome-field.jpg" alt="Glowing chromosomes in a dark microscopic field" className="chromosome-field h-full w-full object-cover object-center" />
+            <img src="./images/chromosome-field.jpg" alt="Glowing chromosomes in a dark microscopic field" className="chromosome-field h-full w-full object-cover object-center" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_48%_45%,transparent_0%,rgba(0,0,0,0.2)_45%,black_100%)]" />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/10 to-black/70" />
           </div>
@@ -848,7 +848,7 @@ export default function App() {
       {/* === SECTION 5: Publications === */}
       <section id="publications" className="relative overflow-hidden bg-[#f6f0df] px-6 py-24 text-slate-950 sm:px-10 lg:px-16 lg:py-32">
         <div 
-          className="absolute inset-0 bg-[url('/images/lab-doodle-bg.jpg')] bg-cover bg-center bg-fixed"
+          className="absolute inset-0 bg-[url('./images/lab-doodle-bg.jpg')] bg-cover bg-center bg-fixed"
           style={{ opacity: 0.55 }}
         />
 
@@ -905,7 +905,7 @@ export default function App() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: "url('/images/karyotype-logo.jpg')",
+            backgroundImage: "url('./images/karyotype-logo.jpg')",
             opacity: 0.15,
           }}
         />
@@ -1000,7 +1000,7 @@ export default function App() {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: "url('/images/microscopy-bg.jpg')",
+            backgroundImage: "url('./images/microscopy-bg.jpg')",
           }}
         />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.88)_0%,rgba(0,0,0,0.72)_38%,rgba(0,0,0,0.82)_100%)]" />
