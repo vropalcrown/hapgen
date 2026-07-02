@@ -25,15 +25,6 @@ body {
   will-change: transform, object-position;
 }
 
-.bridge-plant {
-  animation: bridge-drift 10s ease-in-out infinite alternate;
-  filter: saturate(0.92) contrast(1.08);
-  transform-origin: 72% 50%;
-}
-
-.silique-closeup {
-  filter: saturate(1.04) contrast(1.08);
-}
 
 .scroll-line {
   animation: line-breathe 2.4s ease-in-out infinite;
@@ -94,64 +85,6 @@ body {
   transform: translateY(0);
 }
 
-.dna-road-strand {
-  stroke-dasharray: 22 18;
-  animation: dna-road-grow 8s linear infinite;
-  filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.34));
-}
-
-.dna-road-strand-b {
-  animation-direction: reverse;
-  opacity: 0.72;
-}
-
-.dna-base-rung line {
-  stroke: rgba(255, 255, 255, 0.34);
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-
-.dna-base-rung circle {
-  fill: rgba(190, 242, 100, 0.88);
-  filter: drop-shadow(0 0 7px rgba(190, 242, 100, 0.5));
-  animation: base-pop 2.4s ease-in-out infinite;
-}
-
-.dna-base-rung:nth-child(2n) circle {
-  fill: rgba(103, 232, 249, 0.88);
-  filter: drop-shadow(0 0 7px rgba(103, 232, 249, 0.5));
-}
-
-.dna-polymerase circle {
-  fill: rgba(14, 165, 233, 0.82);
-  stroke: rgba(190, 242, 100, 0.9);
-  stroke-width: 3;
-  filter: drop-shadow(0 0 18px rgba(103, 232, 249, 0.5));
-  animation: polymerase-travel 8s ease-in-out infinite;
-}
-
-.dna-polymerase path {
-  fill: rgba(255, 255, 255, 0.72);
-  animation: polymerase-travel 8s ease-in-out infinite;
-}
-
-@keyframes dna-road-grow {
-  to {
-    stroke-dashoffset: -320;
-  }
-}
-
-@keyframes base-pop {
-  0%, 100% {
-    opacity: 0.45;
-    transform: scale(0.88);
-  }
-  45%, 60% {
-    opacity: 1;
-    transform: scale(1.12);
-  }
-}
-
 
 
 @keyframes line-breathe {
@@ -174,14 +107,6 @@ body {
   }
 }
 
-@keyframes bridge-drift {
-  from {
-    transform: translate3d(2%, 1%, 0) scale(1.06);
-  }
-  to {
-    transform: translate3d(-1%, -1%, 0) scale(1.13);
-  }
-}
 
 
 

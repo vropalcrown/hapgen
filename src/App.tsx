@@ -576,7 +576,6 @@ function DNADock() {
 
 export default function App() {
   const homeSectionRef = useRef<HTMLElement | null>(null);
-  const aboutSectionRef = useRef<HTMLElement | null>(null);
   const plantSectionRef = useRef<HTMLElement | null>(null);
   const chromosomeSectionRef = useRef<HTMLElement | null>(null);
   const membersSectionRef = useRef<HTMLElement | null>(null);
@@ -673,7 +672,7 @@ export default function App() {
       </section>
 
       {/* === SECTION 2: About PI === */}
-      <section id="about-pi" ref={aboutSectionRef} className="relative min-h-screen overflow-hidden bg-black text-white py-24 lg:py-32">
+      <section id="about-pi" className="relative min-h-screen overflow-hidden bg-black text-white py-24 lg:py-32">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
@@ -848,8 +847,11 @@ export default function App() {
       {/* === SECTION 5: Publications === */}
       <section id="publications" className="relative overflow-hidden bg-[#f6f0df] px-6 py-24 text-slate-950 sm:px-10 lg:px-16 lg:py-32">
         <div 
-          className="absolute inset-0 bg-[url('./images/lab-doodle-bg.jpg')] bg-cover bg-center bg-fixed"
-          style={{ opacity: 0.55 }}
+          className="absolute inset-0 bg-cover bg-center bg-fixed"
+          style={{
+            backgroundImage: "url('./images/lab-doodle-bg.jpg')",
+            opacity: 0.55,
+          }}
         />
 
         <div className="relative mx-auto max-w-7xl">
