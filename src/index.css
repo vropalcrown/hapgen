@@ -51,16 +51,29 @@ body {
 .dna-rung line {
   stroke: rgba(255, 255, 255, 0.22);
   stroke-width: 1.2;
+  transition: all 0.3s ease;
+}
+
+.dna-rung.is-active line {
+  stroke: rgba(34, 211, 238, 0.5) !important;
+  stroke-width: 2px !important;
 }
 
 .dna-rung circle {
   fill: rgba(103, 232, 249, 0.75);
   filter: drop-shadow(0 0 7px rgba(103, 232, 249, 0.65));
+  transition: all 0.3s ease;
 }
 
 .dna-rung:nth-of-type(2n) circle {
   fill: rgba(190, 242, 100, 0.74);
   filter: drop-shadow(0 0 7px rgba(190, 242, 100, 0.52));
+}
+
+.dna-rung.is-active circle {
+  fill: #22d3ee !important;
+  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.85)) !important;
+  r: 5.5px !important;
 }
 
 .dna-link {

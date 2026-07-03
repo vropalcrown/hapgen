@@ -531,7 +531,7 @@ function ConfocalFrame({
   );
 }
 
-function DNADock() {
+function DNADock({ activeSection }: { activeSection: string }) {
   return (
     <nav className="dna-dock fixed right-3 top-1/2 z-50 hidden h-[78vh] max-h-[650px] min-h-[520px] w-52 -translate-y-1/2 lg:block" aria-label="Main navigation">
       <svg className="absolute inset-y-0 right-0 h-full w-20 overflow-visible" viewBox="0 0 80 650" fill="none" aria-hidden="true">
@@ -541,9 +541,10 @@ function DNADock() {
           const y = 42 + index * 70;
           const leftX = index % 2 === 0 ? 24 : 56;
           const rightX = index % 2 === 0 ? 56 : 24;
+          const isActive = item.href === `#${activeSection}`;
 
           return (
-            <g key={item.label} className="dna-rung">
+            <g key={item.label} className={`dna-rung ${isActive ? "is-active" : ""}`}>
               <line x1={leftX} y1={y} x2={rightX} y2={y + 24} />
               <circle cx={leftX} cy={y} r="4.5" />
               <circle cx={rightX} cy={y + 24} r="4.5" />
@@ -553,22 +554,33 @@ function DNADock() {
       </svg>
 
       <div className="absolute inset-y-0 right-0 w-full">
-        {navItems.map((item, index) => (
-          <a
-            key={item.label}
-            href={item.href}
-            className="dna-link group absolute right-12 flex items-center gap-3 text-right text-[10px] font-semibold uppercase tracking-[0.24em] text-white/54 transition duration-300 hover:text-cyan-100"
-            style={{
-              top: `${((54 + index * 70) / 650) * 100}%`,
-              transform: `translateY(-50%) translateX(${index % 2 === 0 ? 0 : -18}px)`,
-            }}
-          >
-            <span className="dna-link-text rounded-full border border-white/10 bg-black/28 px-3 py-2 backdrop-blur-md transition duration-300 group-hover:border-cyan-200/45 group-hover:bg-cyan-300/10">
-              {item.label}
-            </span>
-            <span className="h-px w-5 bg-cyan-100/35 transition duration-300 group-hover:w-8 group-hover:bg-cyan-100" />
-          </a>
-        ))}
+        {navItems.map((item, index) => {
+          const isActive = item.href === `#${activeSection}`;
+          return (
+            <a
+              key={item.label}
+              href={item.href}
+              className={`dna-link group absolute right-12 flex items-center gap-3 text-right text-[10px] font-semibold uppercase tracking-[0.24em] transition duration-300 ${
+                isActive ? "text-cyan-200" : "text-white/54 hover:text-cyan-100"
+              }`}
+              style={{
+                top: `${((54 + index * 70) / 650) * 100}%`,
+                transform: `translateY(-50%) translateX(${index % 2 === 0 ? 0 : -18}px)`,
+              }}
+            >
+              <span className={`dna-link-text rounded-full border px-3 py-2 backdrop-blur-md transition duration-300 ${
+                isActive
+                  ? "border-cyan-400/50 bg-cyan-400/15 shadow-[0_0_15px_rgba(34,211,238,0.25)] text-cyan-200"
+                  : "border-white/10 bg-black/28 group-hover:border-cyan-200/45 group-hover:bg-cyan-300/10"
+              }`}>
+                {item.label}
+              </span>
+              <span className={`h-px transition duration-300 ${
+                isActive ? "w-8 bg-cyan-300" : "w-5 bg-cyan-100/35 group-hover:w-8 group-hover:bg-cyan-100"
+              }`} />
+            </a>
+          );
+        })}
       </div>
     </nav>
   );
@@ -583,6 +595,7 @@ export default function App() {
   const [labProgress, setLabProgress] = useState(0);
   const [plantProgress, setPlantProgress] = useState(0);
   const [chromosomeProgress, setChromosomeProgress] = useState(0);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     let frame = 0;
@@ -627,6 +640,32 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
+  // ScrollSpy to track active section
+  useEffect(() => {
+    const sectionIds = ["home", "about-pi", "research", "research-interests", "publications", "lab-members", "alumni", "contact"];
+    const elements = sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            let id = entry.target.id;
+            // Map sub-sections to their main navigation anchor
+            if (id === "research-interests") id = "research";
+            setActiveSection(id);
+          }
+        });
+      },
+      {
+        rootMargin: "-25% 0px -55% 0px",
+        threshold: 0,
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   // --- Animations ---
   const labLogoOpacity = 1 - smooth(clamp(labProgress / 0.45));
   const labLogoScale = 1.0 + labProgress * 0.08;
@@ -655,7 +694,7 @@ export default function App() {
 
   return (
     <main className="min-h-screen">
-      <DNADock />
+      <DNADock activeSection={activeSection} />
 
       {/* === SECTION 1: HapGen Lab === */}
       <section id="home" ref={homeSectionRef} className="relative h-[250vh] bg-[#f7f8f6]">
