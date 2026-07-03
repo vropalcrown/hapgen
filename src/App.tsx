@@ -596,6 +596,7 @@ export default function App() {
   const [plantProgress, setPlantProgress] = useState(0);
   const [chromosomeProgress, setChromosomeProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -695,6 +696,55 @@ export default function App() {
   return (
     <main className="min-h-screen">
       <DNADock activeSection={activeSection} />
+
+      {/* === Floating Mobile/Tablet Header === */}
+      <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4 bg-black/40 backdrop-blur-md border-b border-white/5 lg:hidden">
+        <a href="#home" className="flex items-center gap-3">
+          <img src="./favicon.png" alt="HapGen Logo" className="w-8 h-8 object-contain" />
+          <span className="text-lg font-light tracking-[0.2em] text-white uppercase">HapGen</span>
+        </a>
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen(true)}
+          className="text-white hover:text-cyan-300 transition-colors p-2"
+          aria-label="Open menu"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </header>
+
+      {/* === Fullscreen Mobile Navigation Drawer === */}
+      <div
+        className={`fixed inset-0 z-50 bg-black/95 backdrop-blur-lg flex flex-col justify-center items-center transition-all duration-500 lg:hidden ${
+          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen(false)}
+          className="absolute top-6 right-6 text-white hover:text-cyan-300 transition-colors p-2"
+          aria-label="Close menu"
+        >
+          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <nav className="flex flex-col gap-6 text-center">
+          {navItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={() => setIsMenuOpen(false)}
+              className="text-2xl font-light tracking-[0.25em] uppercase text-white hover:text-cyan-300 transition-colors"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      </div>
 
       {/* === SECTION 1: HapGen Lab === */}
       <section id="home" ref={homeSectionRef} className="relative h-[250vh] bg-[#f7f8f6]">
@@ -835,7 +885,7 @@ export default function App() {
       </section>
 
       {/* === SECTION 3: Arabidopsis Plant === */}
-      <section id="research" ref={plantSectionRef} className="relative h-[500vh] bg-black text-white">
+      <section id="research" ref={plantSectionRef} className="relative h-[200vh] lg:h-[500vh] bg-black text-white">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <div className="absolute inset-0 will-change-transform" style={{ transformOrigin: "62% 30%", transform: `translate3d(${plantX}%, ${plantY}%, 0) scale(${plantScale})`, opacity: plantOpacity, filter: plantBlur > 0.5 ? `blur(${plantBlur}px)` : undefined, transition: "transform 60ms linear" }}>
             <img src="./images/arabidopsis-real.jpg" alt="Arabidopsis thaliana specimen" className="hero-plant h-full w-full object-contain object-center" />
@@ -855,7 +905,7 @@ export default function App() {
       </section>
 
       {/* === SECTION 4: Chromosome & Research Interests === */}
-      <section id="research-interests" ref={chromosomeSectionRef} className="relative h-[430vh] bg-black">
+      <section id="research-interests" ref={chromosomeSectionRef} className="relative h-[200vh] lg:h-[430vh] bg-black">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <div className="absolute inset-0 will-change-transform" style={{ opacity: chromosomeIntro, transform: `translate3d(${chromosomeX}%, 0, 0) scale(${chromosomeScale})`, transition: "transform 70ms linear" }}>
             <img src="./images/chromosome-field.jpg" alt="Glowing chromosomes in a dark microscopic field" className="chromosome-field h-full w-full object-cover object-center" />
@@ -898,7 +948,7 @@ export default function App() {
             <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.6em] text-emerald-900/60">
               Research output
             </p>
-            <h2 className="text-[clamp(3.4rem,11vw,11rem)] font-semibold uppercase leading-[0.8] tracking-[-0.09em] text-slate-950">
+            <h2 className="text-[clamp(2.2rem,8vw,8rem)] font-semibold uppercase leading-[0.8] tracking-[-0.09em] text-slate-950">
               Publications
             </h2>
             <p className="mt-8 max-w-3xl text-sm leading-7 text-slate-700 sm:text-base">
@@ -1053,7 +1103,7 @@ export default function App() {
             <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.6em] text-cyan-300/75">
               Contact
             </p>
-            <h2 className="text-[clamp(3.4rem,11vw,11rem)] font-semibold uppercase leading-[0.8] tracking-[-0.09em] text-white">
+            <h2 className="text-[clamp(2.2rem,8vw,8rem)] font-semibold uppercase leading-[0.8] tracking-[-0.09em] text-white">
               Get in
               <span className="block font-light italic tracking-[-0.06em] text-cyan-100/70">Touch</span>
             </h2>
