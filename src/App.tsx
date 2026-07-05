@@ -597,6 +597,27 @@ export default function App() {
   const [chromosomeProgress, setChromosomeProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    // Only increment view count once per browser session
+    const hasVisited = sessionStorage.getItem("hapgen_visited");
+    const url = hasVisited
+      ? "https://api.counterapi.dev/v1/hapgen-lab-website/views"
+      : "https://api.counterapi.dev/v1/hapgen-lab-website/views/up";
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && typeof data.count === "number") {
+          setVisitorCount(data.count);
+          sessionStorage.setItem("hapgen_visited", "true");
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching visitor count:", err);
+      });
+  }, []);
 
   useEffect(() => {
     let frame = 0;
@@ -1146,6 +1167,20 @@ export default function App() {
               <p className="mt-3 max-w-2xl text-sm leading-7 text-white/68 sm:text-base">
                 School of Biology, Indian Institute of Science Education and Research, Maruthamala P.O, Vithura, Thiruvananthapuram - 695551, Kerala, India.
               </p>
+            </div>
+
+            {/* Visitors Counter */}
+            <div className="mt-5 rounded-2xl border border-white/10 bg-black/24 p-5 flex items-center justify-between">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.35em] text-white/40">Visitors</span>
+              {visitorCount !== null ? (
+                <div className="flex gap-1 items-center font-mono text-xs tracking-wider bg-cyan-950/20 border border-cyan-800/35 rounded-lg px-2.5 py-1">
+                  {String(visitorCount).padStart(6, '0').split('').map((digit, i) => (
+                    <span key={i} className="inline-block bg-black/60 border border-white/5 px-1.5 py-0.5 rounded text-cyan-300 font-bold">{digit}</span>
+                  ))}
+                </div>
+              ) : (
+                <div className="h-6 w-24 bg-white/5 animate-pulse rounded" />
+              )}
             </div>
 
             <div className="mt-6 flex flex-col gap-3 text-[11px] uppercase tracking-[0.24em] text-white/35 sm:flex-row sm:items-center sm:justify-between">
