@@ -601,6 +601,7 @@ export default function App() {
 
   useEffect(() => {
     // Only increment view count once per browser session
+    // Fetch and increment page views using a CORS-enabled Counter API
     const hasVisited = sessionStorage.getItem("hapgen_visited");
     const url = hasVisited
       ? "https://api.counterapi.dev/v1/hapgen-lab-website/views"
