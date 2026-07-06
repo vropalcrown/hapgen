@@ -1172,7 +1172,7 @@ export default function App() {
 
             {/* Visitors Counter */}
             <div className="mt-5 rounded-2xl border border-white/10 bg-black/24 p-5 flex items-center justify-between">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.35em] text-white/40">Visitors</span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.35em] text-white/40">Visitors •</span>
               {visitorCount !== null ? (
                 <div className="flex gap-1 items-center font-mono text-xs tracking-wider bg-cyan-950/20 border border-cyan-800/35 rounded-lg px-2.5 py-1">
                   {String(visitorCount).padStart(6, '0').split('').map((digit, i) => (
